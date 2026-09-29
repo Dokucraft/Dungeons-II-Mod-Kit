@@ -1,0 +1,9 @@
+/SD:UE5Project\Saved\Cooked\Windows\Dungeons\Content
+/DD:Dungeons\Dungeons\Content
+/s
+/XF
+M_*.u*
+MI_*.u*
+*.ushader*
+*.stinfo*
+*.assetinfo.json
