@@ -8,7 +8,9 @@ IF /I "%CONFIRMPROMPT%" NEQ "yes" GOTO EOF
 RD /q /s "..\Dungeons" > nul 2> nul
 RD /q /s "..\UE5Project\Content" > nul 2> nul
 RD /q /s "..\Precooked" > nul 2> nul
+RD /q /s "..\Textures" > nul 2> nul
 
 MD "..\Dungeons" > nul 2> nul
 MD "..\UE5Project\Content" > nul 2> nul
 MD "..\Precooked" > nul 2> nul
+MD "..\Textures" > nul 2> nul
