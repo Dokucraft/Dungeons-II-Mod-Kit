@@ -18,7 +18,7 @@ def find_paks():
   for game in read_setting(os.path.join("user_settings", "game_directory.txt")).splitlines():
     game = game.strip()
     for paks in [os.path.join(game, "Dungeons", "Content", "Paks"), os.path.join(game, "Content", "Dungeons", "Content", "Paks")]:
-      if game and os.path.isdir(paks):
+      if game and os.path.isfile(os.path.join(paks, "global.utoc")):
         return paks
 
 def extract(paks, paths, out):
@@ -38,18 +38,27 @@ def extract(paks, paths, out):
 
 def game_textures(paks, out):
   registry = os.path.join(out, "AssetRegistry.bin")
-  with open(registry, "wb") as file:
-    subprocess.run([REPAK, "-a", aes_key(), "get", os.path.join(paks, "Dungeons-Windows.pak"), "Dungeons/AssetRegistry.bin"], stdout=file, stderr=subprocess.DEVNULL)
+  errors = []
+  for name in os.listdir(paks):
+    if name.lower().endswith(".pak"):
+      with open(registry, "wb") as file:
+        result = subprocess.run([REPAK, "-a", aes_key(), "get", os.path.join(paks, name), "Dungeons/AssetRegistry.bin"], stdout=file, stderr=subprocess.PIPE, text=True)
+      if not result.returncode:
+        break
+      errors.append(f"{name}: {result.stderr.strip()}")
+  else:
+    raise RuntimeError(f"Couldn't read the asset registry from {paks}: {'; '.join(errors) or 'no .pak files'}")
   textures = []
   asset_class = None
-  process = subprocess.Popen([RETOC, "asset-registry", registry], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, encoding="utf-8", errors="replace")
+  process = subprocess.Popen([RETOC, "asset-registry", registry], stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding="utf-8", errors="replace")
   for line in process.stdout:
     line = line.strip()
     if line.startswith("asset_class: "):
       asset_class = line[14:-2]
     elif asset_class == "Texture2D" and line.startswith("package_name: \"/Game/"):
       textures.append(line[21:-2])
-  process.wait()
+  if process.wait() or not textures:
+    raise RuntimeError(f"Couldn't list the game's textures: {process.stderr.read().strip()}")
   return textures
 
 def platform_data(uexp):
