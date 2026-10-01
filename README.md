@@ -9,7 +9,7 @@ These need to be installed in order to use the tools:
 - [Python 3.8+](https://www.microsoft.com/en-us/p/python-38/9mssztt1n39l)
 - Unreal Engine 5.6.1
 
-You can download Unreal Engine for free through the Epic Games Store app, just **make sure to select version 5.6.1**. Using a different version of UE4 will cause all sorts of strange issues.
+You can download Unreal Engine for free through the Epic Games Store app, just **make sure to select version 5.6.1**. Using a different version of Unreal Engine will cause all sorts of strange issues.
 
 ## Setup
 
