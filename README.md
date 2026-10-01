@@ -18,7 +18,7 @@ Edit the text files in the `Tools/user_settings` folder to configure the tools:
 | File                    | Description   |
 | ----------------------- | ------------- |
 | editor_directory.txt    | This contains the path to the folder where the Unreal Editor executables are. |
-| package_output.txt      | This contains the path to the mod package files that the package.bat tool creates. |
+| package_output.txt      | This contains the path and name of the mod package that the package.bat tool creates, for example `...\~mods\My-Mod`. `_P` and `.utoc` are added if they're missing, and the files go in a folder named after the mod, like `~mods\My-Mod\`, unless they're already in one. |
 
 Setting the package_output path to a file in your `~mods` folder is recommended to make testing the mod easy.
 
@@ -48,10 +48,10 @@ Note that any cooked assets you put directly in the `Dungeons` folder will be de
 
 ### Other Files
 
-Anything that isn't an Unreal asset, like level .json files, should be added to the `Dungeons` folder. This folder is what will be turned into a .pak file.
+Anything that isn't an Unreal asset, like level .json files, should be added to the `Dungeons` folder. This folder is what will be turned into the mod package.
 
 ### Packaging
 
-To test your mod, you can run the `package.bat` tool to create a .pak file. If the tool is configured to place the .pak file in your `~mods` folder, you can start the game as soon as it finishes.
+To test your mod, you can run the `package.bat` tool to create the mod package. A mod package is three files with the same name, a `.utoc`, a `.ucas` and a `.pak`, and all three are needed for the mod to load. If the tool is configured to place them in your `~mods` folder, you can start the game as soon as it finishes.
 
-To package your mod for release, use the `Tools/pack_compressed.bat` tool instead. This tool will create a `compressed_pack.pak` file in your `Tools` folder. This .pak file usually takes slightly longer to create, but the file size should be much smaller. You can rename the .pak file to whatever you want.
+To package your mod for release, use the `Tools/pack_compressed.bat` tool instead. This tool will create `compressed_pack_P.utoc`, `compressed_pack_P.ucas` and `compressed_pack_P.pak` in your `Tools` folder. These usually take slightly longer to create, but the files should be much smaller. You can rename them to whatever you want, as long as all three get the same name and it still ends in `_P`.
