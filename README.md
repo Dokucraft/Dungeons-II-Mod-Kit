@@ -36,7 +36,7 @@ By default, materials are configured to not be packaged. If you want to change t
 Replacing textures doesn't need the Unreal editor to be opened at all:
 
 1. Run `export_textures.bat` to export the game's textures to the `Exported Textures` folder.
-2. Copy the ones you want to change into a `Textures` folder, keeping the same path inside it, and edit them.
+2. Make a `Textures` folder in the root folder of the mod kit, next to `cook_assets.bat`. Copy the ones you want to change into it, keeping the same path inside it, and edit them. Don't put them in `UE5Project\Content`, since images there aren't packaged.
 3. Run `cook_assets.bat`.
 4. Run `package.bat`, then start the game.
 
@@ -68,7 +68,7 @@ Note that any cooked assets you put directly in the `Dungeons` folder will be de
 
 To get the game's textures to edit, run the `export_textures.bat` tool. It exports every texture in the game to an `Exported Textures` folder in the root folder of the mod kit, as `.png` files, or `.exr` for the few HDR textures. The folder structure matches what the `Textures` folder needs, so you can copy the ones you want to change straight across. The first time it runs, it installs the Python packages it needs.
 
-To replace game textures, put your images in a `Textures` folder in the root folder of the mod kit, next to `Dungeons`, `UE5Project`, `package.bat`, etc., using the same folder structure and file names as the game. For example, `Textures\Spicewood\Art\Characters\Player\Equipment\Armor\Wolfclutch_Armor\T_Wolfclutch.png`. Images extracted with their `Dungeons\Content` folders still in the path work too.
+To replace game textures, put your images in a `Textures` folder in the root folder of the mod kit, next to `Dungeons`, `UE5Project`, `package.bat`, etc., using the same folder structure and file names as the game. For example, `Textures\Spicewood\Art\Characters\Player\Equipment\Armor\Wolfclutch_Armor\T_Wolfclutch.png`. Images extracted with their `Dungeons\Content` folders still in the path work too. If you don't have a `Textures` folder, simply make one.
 
 When you run `cook_assets.bat`, every image that is new or has changed is imported into the Unreal project with the same settings as the original game texture, read from your game install. Imported textures are removed from the project again when their image is deleted from the `Textures` folder. Images that don't match a game texture are imported with default settings and a warning.
 
