@@ -30,7 +30,7 @@ This guide assumes you're already familiar with the game files and how to extrac
 
 ### Unreal Assets
 
-Any 3D model, sound file, texture that isn't a block texture, and a bunch of other things are *Unreal assets*. These files should be managed using the Unreal editor. You can open the project by opening the `Dungeons.uproject` file in the `UE5Project` folder using the editor.
+Any 3D model, sound file, texture, and a bunch of other things are *Unreal assets*. These files should be managed using the Unreal editor. You can open the project by opening the `Dungeons.uproject` file in the `UE5Project` folder using the editor.
 
 Unreal assets need to be *cooked* before being packaged.
 
