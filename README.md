@@ -24,12 +24,27 @@ Edit the text files in the `Tools/user_settings` folder to configure the tools:
 | File                    | Description   |
 | ----------------------- | ------------- |
 | editor_directory.txt    | This contains the path to the folder where the Unreal Editor executables are. If the path doesn't exist, the tools find Unreal Engine 5.6 through the Epic Games Store app instead, so you only need to change this for an install the app doesn't know about. |
-| game_directory.txt      | This contains the paths to check for the game's install folder, one per line. The first one that exists is used. The defaults are the Steam and Minecraft Launcher install folders; add yours if the game is installed somewhere else. It's used to export textures, and to read the original settings of textures you replace. |
-| package_output.txt      | This contains the path and name of the mod package that the package.bat tool creates, for example `...\~mods\My-Mod`. `_P` and `.utoc` are added if they're missing, and the files go in a folder named after the mod, like `~mods\My-Mod\`, unless they're already in one. |
-
-Setting the package_output path to your `~mods` folder is recommended to make testing the mod easy.
+| game_directory.txt      | This contains the paths to check for the game's install folder, one per line. The first one that exists is used. The defaults are the Steam and Minecraft Launcher install folders; add yours if the game is installed somewhere else. It's used to export textures, to read the original settings of textures you replace, and to put your mod package in the game's `~mods` folder. |
+| mod_info.json           | This contains your mod's id, and the name, version, author and description shown for it in Blueprint Loader's mod menu. See the **Mod Info** section below. |
 
 By default, materials are configured to not be packaged. If you want to change that, or if you want to exclude other Unreal assets from being packaged, you can edit `Tools/configs/copy_cooked_assets.rcj`. To include materials, just remove `M_*.u*` and `MI_*.u*`. To exclude certain files, just add the file names at the bottom, each on their own line. If you remove all of the filters, you need to remove `/XF` as well.
+
+## Mod Info
+
+Every mod package made with the mod kit includes a small info file, so players with [Blueprint Loader](https://www.nexusmods.com/minecraftdungeons2/mods/2) installed can see your mod in its Mods menu, in the game's settings. Without Blueprint Loader the file does nothing, and your mod doesn't need Blueprint Loader to work.
+
+Your mod's details go in `Tools/user_settings/mod_info.json`:
+
+| Field                  | Description   |
+| ---------------------- | ------------- |
+| id                     | The mod's id, used to name the mod package and its folder in `~mods`. |
+| name                   | The mod's name. |
+| version                | The mod's version. |
+| author                 | Your name. |
+| author_url (optional)  | A link that opens when your name is clicked, like your Nexus Mods profile. |
+| description (optional) | A short description of the mod. |
+
+The info is added when you run `cook_assets.bat`, so run it again after changing the file.
 
 ## Texture mods
 
@@ -80,9 +95,9 @@ Anything that isn't an Unreal asset, like the game's loose `.json`, `.locres` an
 
 ### Packaging
 
-To test your mod, you can run the `package.bat` tool to create the mod package. A mod package is three files with the same name, a `.utoc`, a `.ucas` and a `.pak`, and all three are needed for the mod to load. If the tool is configured to place them in your `~mods` folder, you can start the game as soon as it finishes.
+To test your mod, you can run the `package.bat` tool to create the mod package. A mod package is three files with the same name, a `.utoc`, a `.ucas` and a `.pak`, and all three are needed for the mod to load. They're named after your mod's id and go in the game's `~mods` folder, like `~mods\My-Mod\My-Mod_P.utoc`, so you can start the game as soon as it finishes.
 
-To package your mod for release, use the `Tools/pack_compressed.bat` tool instead. This tool will create `compressed_pack_P.utoc`, `compressed_pack_P.ucas` and `compressed_pack_P.pak` in your `Tools` folder. These usually take slightly longer to create, but the files should be much smaller. You can rename them to whatever you want, as long as all three get the same name and it still ends in `_P`.
+To package your mod for release, use the `Tools/pack_for_release.bat` tool instead. It zips the mod package to `Release\My-Mod.zip`, named after your mod's id, with the files in a `My-Mod` folder inside so players can extract it straight into their `~mods` folder.
 
 ### Starting Over
 
