@@ -1,3 +1,4 @@
+@echo off
 CALL Tools\mod_id.bat
 IF %ERRORLEVEL% NEQ 0 exit /b 1
 

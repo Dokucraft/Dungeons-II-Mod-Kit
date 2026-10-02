@@ -1,3 +1,4 @@
+@echo off
 SET "ddp=%~dp0"
 SET "ddp=%ddp:~0,-1%"
 

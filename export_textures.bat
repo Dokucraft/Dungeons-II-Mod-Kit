@@ -1,3 +1,4 @@
+@echo off
 SET "python=python"
 WHERE py >nul 2>nul && SET "python=py -3"
 
