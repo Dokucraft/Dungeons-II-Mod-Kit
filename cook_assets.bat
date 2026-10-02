@@ -16,7 +16,11 @@ del /S Dungeons\*.ufont
 del /S Dungeons\*.uptnl
 del /S Dungeons\*.upipelinecache
 
-IF EXIST Textures "%editorPath%\UnrealEditor-Cmd.exe" "%ddp%\UE5Project\Dungeons.uproject" -run=pythonscript -script="%ddp%\Tools\import_textures.py" -unattended -nosplash
+"%editorPath%\UnrealEditor-Cmd.exe" "%ddp%\UE5Project\Dungeons.uproject" -run=pythonscript -script="%ddp%\Tools\prepare_assets.py" -unattended -nosplash
+IF %ERRORLEVEL% NEQ 0 (
+  echo Cooking stopped because of the error above.
+  exit /b 1
+)
 
 "%editorPath%\UnrealEditor-Cmd.exe" "%ddp%\UE5Project\Dungeons.uproject" -run=cook -targetplatform=Windows -cookall -skipzenstore
 

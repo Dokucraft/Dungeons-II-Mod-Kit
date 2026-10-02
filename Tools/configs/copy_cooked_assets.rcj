@@ -1,6 +1,8 @@
 /SD:UE5Project\Saved\Cooked\Windows\Dungeons\Content
 /DD:Dungeons\Dungeons\Content
 /s
+/XD
+BlueprintLoader
 /XF
 M_*.u*
 MI_*.u*
