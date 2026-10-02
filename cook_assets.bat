@@ -23,7 +23,7 @@ IF %ERRORLEVEL% NEQ 0 (
   exit /b 1
 )
 
-"%editorPath%\UnrealEditor-Cmd.exe" "%ddp%\UE5Project\Dungeons.uproject" -run=cook -targetplatform=Windows -cookall -skipzenstore
+"%editorPath%\UnrealEditor-Cmd.exe" "%ddp%\UE5Project\Dungeons.uproject" -run=cook -targetplatform=Windows -cookall -iterate -skipzenstore
 
 robocopy /job:Tools\configs\copy_cooked_assets
 
