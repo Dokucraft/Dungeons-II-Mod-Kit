@@ -1,16 +1,19 @@
-SET /p packageOutput= < Tools\user_settings\package_output.txt
-IF /I "%packageOutput:~-5%"==".utoc" SET "packageOutput=%packageOutput:~0,-5%"
-IF /I NOT "%packageOutput:~-2%"=="_P" SET "packageOutput=%packageOutput%_P"
-SET "packageOutput=%packageOutput%.utoc"
+CALL Tools\mod_id.bat
+IF %ERRORLEVEL% NEQ 0 exit /b 1
 
-FOR %%F IN ("%packageOutput%") DO (
-  SET "outputFolder=%%~dpF"
-  SET "packageName=%%~nF"
+SET "paks="
+FOR /F "usebackq delims=" %%G IN ("Tools\user_settings\game_directory.txt") DO IF NOT DEFINED paks (
+  IF EXIST "%%G\Dungeons\Content\Paks\global.utoc" SET "paks=%%G\Dungeons\Content\Paks"
+  IF NOT DEFINED paks IF EXIST "%%G\Content\Dungeons\Content\Paks\global.utoc" SET "paks=%%G\Content\Dungeons\Content\Paks"
 )
-SET "modName=%packageName:~0,-2%"
-FOR %%D IN ("%outputFolder%.") DO SET "parentName=%%~nxD"
-IF /I NOT "%parentName%"=="%modName%" SET "outputFolder=%outputFolder%%modName%\"
-IF NOT EXIST "%outputFolder%" MD "%outputFolder%"
-SET "packageOutput=%outputFolder%%packageName%.utoc"
+IF NOT DEFINED paks (
+  echo Couldn't find the game. Add its install folder to Tools\user_settings\game_directory.txt
+  exit /b 1
+)
 
-Tools\retoc.exe to-zen --version UE5_6 "Dungeons" "%packageOutput%"
+SET "outputFolder=%paks%\~mods\%modName%"
+IF NOT EXIST "%outputFolder%" MD "%outputFolder%"
+
+Tools\retoc.exe to-zen --version UE5_6 "Dungeons" "%outputFolder%\%modName%_P.utoc"
+
+CALL Tools\pack_mod_info.bat "%outputFolder%\%modName%_P.pak"
