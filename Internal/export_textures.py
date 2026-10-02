@@ -88,7 +88,7 @@ def export(path, base):
 if __name__ == "__main__":
   paks = game_files.find_paks()
   if not paks:
-    sys.exit("Couldn't find the game, check Tools/user_settings/game_directory.txt")
+    sys.exit("Couldn't find the game, check Settings/game_directory.txt")
   with tempfile.TemporaryDirectory() as temp:
     print("Finding textures...")
     textures = game_files.game_textures(paks, temp)

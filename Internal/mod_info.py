@@ -3,8 +3,8 @@ import os
 import re
 import unreal
 
-TOOLS = os.path.dirname(os.path.abspath(__file__))
-SETTINGS = os.path.join(TOOLS, "user_settings")
+INTERNAL = os.path.dirname(os.path.abspath(__file__))
+SETTINGS = os.path.join(os.path.dirname(INTERNAL), "Settings")
 INFO_CLASS = "/Game/Mods/BlueprintLoader/BP_ModInfo"
 FIELDS = {"ModName": "name", "Version": "version", "Author": "author", "AuthorUrl": "author_url", "Description": "description"}
 TAG = "ModKitModInfo"

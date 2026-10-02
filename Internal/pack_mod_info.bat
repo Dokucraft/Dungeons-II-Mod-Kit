@@ -8,6 +8,6 @@ FOR /D %%M IN (Dungeons\Dungeons\Content\Mods\*) DO IF EXIST "%%M\ModInfo.uasset
 
 IF EXIST "%header%" (
   DEL "%~1"
-  Tools\repak.exe pack -q --version V11 "%header%" "%~1"
+  Internal\repak.exe pack -q --version V11 "%header%" "%~1"
   RD /S /Q "%header%"
 )

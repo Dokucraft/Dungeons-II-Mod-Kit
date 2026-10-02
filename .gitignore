@@ -11,7 +11,7 @@ Dungeons/**/*.ubulk
 Dungeons/**/*.uexp
 Dungeons/**/*.umap
 Dungeons/**/*.ufont
-Tools/oo2core_9_win64.dll
+Internal/oo2core_9_win64.dll
 __pycache__/
 Exported Textures/
 Release/

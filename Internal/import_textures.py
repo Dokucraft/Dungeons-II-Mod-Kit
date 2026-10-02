@@ -55,7 +55,7 @@ def read_game_settings(paths):
     return settings
   paks = game_files.find_paks()
   if not paks:
-    log("couldn't find the game, check Tools/user_settings/game_directory.txt. Textures will be imported with default settings")
+    log("couldn't find the game, check Settings/game_directory.txt. Textures will be imported with default settings")
     return settings
   extracted = game_files.extract(paks, paths, os.path.join(CONTENT, TEMP))
   registry.scan_paths_synchronous(["/Game/" + TEMP], True)

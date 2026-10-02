@@ -3,19 +3,20 @@ import re
 import struct
 import subprocess
 
-TOOLS = os.path.dirname(os.path.abspath(__file__))
-RETOC = os.path.join(TOOLS, "retoc.exe")
-REPAK = os.path.join(TOOLS, "repak.exe")
+INTERNAL = os.path.dirname(os.path.abspath(__file__))
+SETTINGS = os.path.join(os.path.dirname(INTERNAL), "Settings")
+RETOC = os.path.join(INTERNAL, "retoc.exe")
+REPAK = os.path.join(INTERNAL, "repak.exe")
 BATCH = 50
 
-def read_setting(file):
-  return open(os.path.join(TOOLS, file)).read().strip()
+def read_setting(folder, file):
+  return open(os.path.join(folder, file)).read().strip()
 
 def aes_key():
-  return read_setting(os.path.join("configs", "aes_key.txt"))
+  return read_setting(INTERNAL, "aes_key.txt")
 
 def find_paks():
-  for game in read_setting(os.path.join("user_settings", "game_directory.txt")).splitlines():
+  for game in read_setting(SETTINGS, "game_directory.txt").splitlines():
     game = game.strip()
     for paks in [os.path.join(game, "Dungeons", "Content", "Paks"), os.path.join(game, "Content", "Dungeons", "Content", "Paks")]:
       if game and os.path.isfile(os.path.join(paks, "global.utoc")):

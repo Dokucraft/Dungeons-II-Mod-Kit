@@ -17,9 +17,21 @@ Python is only needed for the `export_textures.bat` tool. You can install it fro
 winget install -e --id Python.Python.3.14
 ```
 
+## Folders
+
+| Folder                  | What it's for |
+| ----------------------- | ------------- |
+| The root folder         | The tools you run: `cook_assets.bat`, `package.bat`, `package_for_release.bat` and `export_textures.bat`. |
+| Settings                | Your settings. See **Setup** below. |
+| Tools                   | Extra tools you can use when you need them. |
+| Internal                | Files the tools use behind the scenes. You don't need to open or change anything in here. |
+| UE5Project              | The Unreal project for your mod's Unreal assets. |
+| Textures                | Your replacement textures, if you make any. See **Texture mods** below. |
+| Dungeons                | Everything that goes into your mod package. |
+
 ## Setup
 
-Edit the text files in the `Tools/user_settings` folder to configure the tools:
+Edit the files in the `Settings` folder to configure the tools:
 
 | File                    | Description   |
 | ----------------------- | ------------- |
@@ -27,13 +39,13 @@ Edit the text files in the `Tools/user_settings` folder to configure the tools:
 | game_directory.txt      | This contains the paths to check for the game's install folder, one per line. The first one that exists is used. The defaults are the Steam and Minecraft Launcher install folders; add yours if the game is installed somewhere else. It's used to export textures, to read the original settings of textures you replace, and to put your mod package in the game's `~mods` folder. |
 | mod_info.json           | This contains your mod's id, and the name, version, author and description shown for it in Blueprint Loader's mod menu. See the **Mod Info** section below. |
 
-By default, materials are configured to not be packaged. If you want to change that, or if you want to exclude other Unreal assets from being packaged, you can edit `Tools/configs/copy_cooked_assets.rcj`. To include materials, just remove `M_*.u*` and `MI_*.u*`. To exclude certain files, just add the file names at the bottom, each on their own line. If you remove all of the filters, you need to remove `/XF` as well.
+By default, materials are configured to not be packaged. If you want to change that, or if you want to exclude other Unreal assets from being packaged, you can edit `Settings/copy_cooked_assets.rcj`. To include materials, just remove `M_*.u*` and `MI_*.u*`. To exclude certain files, just add the file names at the bottom, each on their own line. If you remove all of the filters, you need to remove `/XF` as well.
 
 ## Mod Info
 
 Every mod package made with the mod kit includes a small info file, so players with [Blueprint Loader](https://www.nexusmods.com/minecraftdungeons2/mods/2) installed can see your mod in its Mods menu, in the game's settings. Without Blueprint Loader the file does nothing, and your mod doesn't need Blueprint Loader to work.
 
-Your mod's details go in `Tools/user_settings/mod_info.json`:
+Your mod's details go in `Settings/mod_info.json`:
 
 | Field                  | Description   |
 | ---------------------- | ------------- |
@@ -71,7 +83,7 @@ Unreal assets need to be *cooked* before being packaged.
 
 Run the `cook_assets.bat` tool to cook the assets and automatically copy them to the `Dungeons` folder, ready to be packaged.
 
-You can exclude certain files by editing `Tools/configs/copy_cooked_assets.rcj`, like mentioned in the **Setup** section above. By default, material files are excluded.
+You can exclude certain files by editing `Settings/copy_cooked_assets.rcj`, like mentioned in the **Setup** section above. By default, material files are excluded.
 
 #### Precooked Files
 
@@ -97,7 +109,7 @@ Anything that isn't an Unreal asset, like the game's loose `.json`, `.locres` an
 
 To test your mod, you can run the `package.bat` tool to create the mod package. A mod package is three files with the same name, a `.utoc`, a `.ucas` and a `.pak`, and all three are needed for the mod to load. They're named after your mod's id and go in the game's `~mods` folder, like `~mods\My-Mod\My-Mod_P.utoc`, so you can start the game as soon as it finishes.
 
-To package your mod for release, use the `Tools/pack_for_release.bat` tool instead. It zips the mod package to `Release\My-Mod.zip`, named after your mod's id, with the files in a `My-Mod` folder inside so players can extract it straight into their `~mods` folder.
+To package your mod for release, use the `package_for_release.bat` tool instead. It zips the mod package to `Release\My-Mod.zip`, named after your mod's id, with the files in a `My-Mod` folder inside so players can extract it straight into their `~mods` folder.
 
 ### Starting Over
 
