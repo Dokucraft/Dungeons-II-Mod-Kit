@@ -55,6 +55,24 @@ Your mod's details go in `Settings/mod_info.json`:
 | author                 | Your name. |
 | author_url (optional)  | A link that opens when your name is clicked, like your Nexus Mods profile. |
 | description (optional) | A short description of the mod. |
+| nexus_mods_id (optional) | The mod's id on Nexus Mods, the number at the end of its page address. Blueprint Loader uses it to tell players when an update is out. Nexus Mods gives your mod its id as soon as you create the page, before you upload any files. |
+| nexus_file_name (optional) | Only needed if the mod isn't the main file on its Nexus Mods page. The name of its file in the page's file list, which you type in when uploading. Upload every new version with the same file name. |
+| translations (optional) | The mod's name and description in other languages. See below. |
+
+Blueprint Loader compares the mod's `version` with the version of its file on Nexus Mods, so keep the two the same.
+
+### Translations
+
+`translations` shows your mod's name and description in the player's language, following the language picked in the game's settings. Add one entry per language code, with a `name`, a `description` or both:
+
+```json
+"translations": {
+  "fr": { "name": "Mon Mod", "description": "Une courte description du mod." },
+  "de-DE": { "name": "Mein Mod" }
+}
+```
+
+The game's languages are de-DE, en, en-GB, es-ES, es-MX, fr-CA, fr-FR, it-IT, ja-JP, ko-KR, nl-NL, pl-PL, pt-BR, ru-RU, sv-SE, tr-TR, uk-UA, zh-Hans and zh-Hant. An exact match is used first. Otherwise a translation for the same language is used, so `fr` covers both fr-FR and fr-CA. Anything missing uses your normal text.
 
 The info is added when you run `cook_assets.bat`, so run it again after changing the file.
 
